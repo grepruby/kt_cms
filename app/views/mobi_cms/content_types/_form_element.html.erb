@@ -1,29 +1,30 @@
+<hr>
+<% unless element['errors'].blank? %>
+  <div>
+    <%= element['errors'].html_safe %>
+  <div>
+<%end %>
 
 <div class="row">
-  <% unless element['errors'].blank? %>
-    <span>
-      <%= element['errors'].html_safe %>
-    </span>
-  <%end %>
-  <div class="span5">
+  <div class="span4">
     <label class="string required control-label"><abbr>*</abbr>Title</label>
     <%= text_field_tag 'element[][title]', element["title"] %>
    </div>
-  <div class="span5">
+  <div class="span4">
     <label class="string required control-label"><abbr>*</abbr>Data Type</label>
     <%= select_tag("element[][data_type]", options_for_select([["Text","text"],["Paragraph text","paragraph text"]], element["data_type"])) %>
    </div>
-  <div class="span5">
+  <div class="span1">
     <label class="string required control-label">Unique</label>
     <%= check_box_tag 'element[][unique]', 'yes', element["unique"] %>
    </div>
-  <div class="span5">
+  <div class="span1">
     <label class="string required control-label">Mendatory</label>
     <%= check_box_tag 'element[][mendatory]', 'yes', element["mendatory"] %>
    </div>
-  <div class="span4">
+  <div class="span1">
     <% if index != 0 %>
-      <a href='javascript:void(0);' class='remove'>Remove</a>  
+      <a href='javascript:void(0);' class='remove btn btn-danger btn-mini button_margin'>Remove</a>  
     <% end %>
   </div>
 </div>

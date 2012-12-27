@@ -9,6 +9,8 @@ gemspec
 gem "jquery-rails"
 gem 'mysql2'
 gem 'simple_form'
+gem 'sass-rails', '~> 3.2'
+gem 'bootstrap-sass', '~> 2.2.2.0'
 
 # Declare any dependencies that are still in development here instead of in
 # your gemspec. These might include edge Rails or gems from your path or
@@ -16,6 +18,6 @@ gem 'simple_form'
 # your gem to rubygems.org.
 
 # To use debugger
-group :development do
+group :test do
   gem 'debugger'
 end

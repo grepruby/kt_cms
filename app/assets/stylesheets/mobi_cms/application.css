@@ -8,6 +8,25 @@
  * You're free to add application-wide styles to this file and they'll appear at the top of the
  * compiled file, but it's generally better to create a new file per style scope.
  *
+ *= require bootstrap
+ *= custom_style
  *= require_self
  *= require_tree .
  */
+
+
+body {
+  padding: 60px 0 60px 0; }
+
+strong.highlight {
+  background-color: yellow; }
+
+table.messages .actions, table.target_groups .actions {
+  width: 70px; }
+  table.messages .actions > a, table.target_groups .actions > a {
+    visibility: hidden; }
+table.messages tr:hover .actions > a, table.target_groups tr:hover .actions > a {
+  visibility: visible; }
+
+table.responses tr.pending td {
+  color: #ccc; }
