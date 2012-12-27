@@ -1,7 +1,7 @@
-<%= form_for(@content_type) do |f| %>
+
   <% if @content_type.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@content_type.errors.count, "error") %> prohibited this content_type from being saved:</h2>
+      <h2><%= pluralize(@content_type.errors.count, "error") %> prohibited this game from being saved:</h2>
 
       <ul>
       <% @content_type.errors.full_messages.each do |msg| %>
@@ -10,16 +10,26 @@
       </ul>
     </div>
   <% end %>
+  <label class="string required control-label"><abbr>*</abbr>Name</label>
+  <%= text_field_tag 'name', @content_type.name %>
+  <% @content_type.elements.each_with_index do |element, index| %>
+    <%= render :partial => "form_element", :locals => {:element => element, :index => index} %>
+  <% end %>
+  <div id="more_content_types"></div>
+  <%= link_to "<b>Add another Element</b>".html_safe, another_element_content_types_path, :remote => true %>
+  <div class="row">
+     <div class="span3 create_button_with_margin">
+      <input type="submit" value="Create Element" name="commit" class="btn btn-success">
+     </div>
+  </div>
 
-  <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :content_type_attributes %><br />
-    <%= f.text_area :content_type_attributes %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
++<script>
+$(document).ready(function(){
+alert("jsb");
+  $(".remove").live('click', function(){
+    $(this).parent().parent().remove();
+  });
+});
++</script>
+
+

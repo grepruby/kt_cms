@@ -1,6 +1,5 @@
 <h1>Editing content_type</h1>
 
-<%= render 'form' %>
-
-<%= link_to 'Show', @content_type %> |
-<%= link_to 'Back', content_types_path %>
+<%= form_tag({:action => "update", :id => @content_type.id}, :method => :put) do %>
+  <%= render 'form' %>
+<% end %>
