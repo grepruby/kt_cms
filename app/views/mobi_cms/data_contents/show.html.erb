@@ -1,0 +1,15 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Content type:</b>
+  <%= @data_content.content_type %>
+</p>
+
+<p>
+  <b>Values:</b>
+  <%= @data_content.values %>
+</p>
+
+
+<%= link_to 'Edit', edit_data_content_path(@data_content) %> |
+<%= link_to 'Back', data_contents_path %>

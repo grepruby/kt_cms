@@ -1,0 +1,23 @@
+<legend>Listing Data Content</legend>
+
+<table class="table table-hover messages">
+  <tr>
+    <th>Data Form</th>
+    <th>Operations</th>
+  </tr>
+
+<% @data_contents.each do |data_content| %>
+  <tr>
+    <td><%= data_content.content_type.name %></td>
+    <td>
+      <%= link_to 'Edit', edit_content_type_data_content_path(@content_type, data_content), class: 'btn btn-mini' %>
+      <%= link_to 'Destroy',content_type_data_content_path(@content_type, data_content), method: :delete, class: 'btn btn-danger btn-mini', data: { confirm: 'Are you sure?' } %>
+    </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'Add New Record', new_content_type_data_content_path(@content_type), class: 'btn btn-primary' %>
+

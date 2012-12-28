@@ -1,0 +1,21 @@
+<%= simple_form_for [@content_type, @data_content] do |f| %>
+  <% if @data_content.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@data_content.errors.count, "error") %> prohibited this data_content from being saved:</h2>
+
+      <ul>
+      <% @data_content.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <% JSON.parse(@content_type.content_type_attributes).each do |data_key, data_hash| %>
+    <div class="field">
+      <%= f.input "values",:as => data_hash['data_type']%>
+    </div>
+  <% end %>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
