@@ -19,7 +19,6 @@ module MobiCms
   
     def edit
       @content_type = ContentType.find(params[:id])
-      
       @content_type.elements = JSON.parse(@content_type.content_type_attributes)
     end
   

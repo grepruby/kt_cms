@@ -23,11 +23,14 @@ module MobiCms
 
     def edit
       @data_content = DataContent.find(params[:id])
+      @data_content.parse_and_set_attributes
     end
   
 
     def create
-      @data_content = DataContent.new(params[:data_content])
+      
+      params_content = params.delete(:data_content)
+      @data_content = @content_type.data_contents.build(:contents => params_content)
       if @data_content.save
         redirect_to content_type_data_contents_path(@content_type), notice: 'Data content was successfully created.'
       else
@@ -37,7 +40,9 @@ module MobiCms
   
 
     def update
+      params_content = params.delete(:data_content)
       @data_content = DataContent.find(params[:id])
+      @data_content.contents = params_content
       if @data_content.update_attributes(params[:data_content])
         redirect_to content_type_data_contents_path(@content_type), notice: 'Data content was successfully updated.'
       else

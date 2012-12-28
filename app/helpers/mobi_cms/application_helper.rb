@@ -14,5 +14,9 @@ module MobiCms
         flash_type.to_s
     end
   end
+
+   def get_options_array(options_str)
+      options_str.split(",")
+    end
   end
 end
