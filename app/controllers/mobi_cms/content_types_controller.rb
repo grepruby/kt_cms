@@ -2,7 +2,7 @@ require_dependency "mobi_cms/application_controller"
 
 module MobiCms
   class ContentTypesController < ApplicationController
-    SINGLE_ATTRIBUTE_META_DATA = {'name' => "", 'is_required' => false, 'type' => '', 'is_uniq' => false, 'errors' => ""}
+    SINGLE_ATTRIBUTE_META_DATA = {'title' => "", 'unique' => false, 'data_type' => '', 'mendatory' => false, 'errors' => "", 'multi_options' => ''}
     def index
       @content_types = ContentType.all
     end
@@ -14,11 +14,12 @@ module MobiCms
   
 
     def new
-      @content_type = ContentType.new(:elements => [SINGLE_ATTRIBUTE_META_DATA])
+      @content_type = ContentType.new(:elements => { 0 => SINGLE_ATTRIBUTE_META_DATA})
     end
   
     def edit
       @content_type = ContentType.find(params[:id])
+      
       @content_type.elements = JSON.parse(@content_type.content_type_attributes)
     end
   
@@ -26,9 +27,7 @@ module MobiCms
     def create
       elements = params.delete(:element)
       @content_type = ContentType.new(:elements => elements, :name => params[:name])
-      @content_type.valid?
-      if @content_type.valid?
-        @content_type.save
+      if @content_type.save
         redirect_to content_types_url, :success => "Content type was successfully created."
       else
         render :action => :new
@@ -39,9 +38,7 @@ module MobiCms
       @content_type = ContentType.find(params[:id])
       @content_type.elements = params.delete(:element)
       @content_type.name = params[:name]
-      @content_type.valid?
-      if @content_type.valid?
-        @content_type.save
+      if @content_type.save
         redirect_to content_types_url, notice: 'Content type was successfully updated.' 
       else
         render action: "edit"

@@ -21,9 +21,10 @@
     </div>
   </div>
 
-
-  <% @content_type.elements.each_with_index do |element, index| %>
-    <%= render :partial => "form_element", :locals => {:element => element, :index => index} %>
+  <% i = 0 %>
+  <% @content_type.elements.each do |key, hash| %>
+    <%= render :partial => "form_element", :locals => {:element => hash, :index => i} %>
+    <% i += 1 %>
   <% end %>
 
   <div id="more_content_types"></div>
@@ -37,6 +38,14 @@
     $(".remove").live('click', function(){
       $(this).parent().parent().remove();
     });
+
+    $(".options").live('change', function(){
+      if ($(this).val() != "text" && $(this).val() != "string")
+        $(this).parent().parent().find("div#options_block").removeClass("hide").addClass("show");
+      else
+        $(this).parent().parent().find("div#options_block").removeClass("show").addClass("hide");
+    }); 
+
   });
 </script>
 

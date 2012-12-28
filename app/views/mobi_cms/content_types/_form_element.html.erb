@@ -12,7 +12,7 @@
    </div>
   <div class="span4">
     <label class="string required control-label"><abbr>*</abbr>Data Type</label>
-    <%= select_tag("element[][data_type]", options_for_select([["Text","text"],["Paragraph text","paragraph text"]], element["data_type"])) %>
+    <%= select_tag("element[][data_type]", options_for_select([["Text","string"],["Paragraph text","text"],["Multiple choice", "radio"],["Checkboxes", "checkboxe"],["Choose from a list", "list"]], element["data_type"]), class: "options") %>
    </div>
   <div class="span1">
     <label class="string required control-label">Unique</label>
@@ -27,4 +27,8 @@
       <a href='javascript:void(0);' class='remove btn btn-danger btn-mini button_margin'>Remove</a>  
     <% end %>
   </div>
+  <div class="span5 <%= display_class(element['data_type']) %>" id="options_block">
+    <label class="string required control-label"><abbr>*</abbr>Options</label>
+    <%= text_area_tag 'element[][multi_options]', element["multi_options"] %>
+   </div>
 </div>
