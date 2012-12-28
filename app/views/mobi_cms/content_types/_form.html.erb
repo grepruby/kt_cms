@@ -1,7 +1,7 @@
 
   <% if @content_type.errors.any? %>
     <div id="error_explanation">
-      <h2><%= pluralize(@content_type.errors.count, "error") %> prohibited this game from being saved:</h2>
+      <h2><%= pluralize(@content_type.errors.count, "error") %> prohibited from being saved:</h2>
       <ul>
       <% @content_type.errors.full_messages.each do |msg| %>
         <li><%= msg %></li>
@@ -13,11 +13,8 @@
 
   <div class="row">
     <div class="span4">
-      <label class="string required control-label"><abbr>*</abbr>Name</label>
+      <label class="string required control-label"><abbr>* </abbr>Name</label>
       <%= text_field_tag 'name', @content_type.name %>
-    </div>
-      <div class="span3 pull-right button_margin">
-      <%= link_to "<b>Add another Element</b>".html_safe, another_element_content_types_path, :remote => true, class: 'btn btn-primary' %>
     </div>
   </div>
 
@@ -29,14 +26,20 @@
 
   <div id="more_content_types"></div>
 
+  <div class="row">
+      <div class="span3 pull-right button_margin">
+      <%= link_to "<b>Add another Element</b>".html_safe, another_element_content_types_path, :remote => true, class: 'btn btn-primary' %>
+    </div>
+  </div>
   <div class="form-actions">
     <input type="submit" value="Save Form Data" name="commit" class="btn btn-success">
+    <%= link_to "Cancel", root_path, :class => "btn btn-danger" %>
   </div>
 
 <script>
   $(document).ready(function(){
     $(".remove").live('click', function(){
-      $(this).parent().parent().remove();
+      $(this).closest(".element-row").remove();
     });
 
     $(".options").live('change', function(){

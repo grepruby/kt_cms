@@ -5,5 +5,5 @@ MobiCms::Engine.routes.draw do
     end
   end
 
-
+  root :to => "content_types#index"
 end
