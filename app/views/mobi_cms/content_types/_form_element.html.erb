@@ -17,8 +17,8 @@
       <%= select_tag("element[][data_type]", options_for_select([["Text","string"],["Paragraph text","text"],["Multiple choice", "radio"],["Checkboxes", "check_boxes"],["Choose from a list", "select"]], element["data_type"]), class: "options") %>
      </div>
     <div class="span1">
-      <label class="string required control-label">Unique</label>
-      <%= check_box_tag 'element[][unique]', 'yes', element["unique"] %>
+      <!--<label class="string required control-label">Unique</label>-->
+      <%#= check_box_tag 'element[][unique]', 'yes', element["unique"] %>
      </div>
     <div class="span1">
       <label class="string required control-label">Mendatory</label>

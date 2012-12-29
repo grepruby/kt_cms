@@ -12,10 +12,13 @@
   <% end %>
   <% JSON.parse(@content_type.content_type_attributes).each do |data_key, data_hash| %>
     <div class="field">
-      <%= f.input data_hash['title'],:as => data_hash['data_type'], :collection => get_options_array(data_hash['multi_options'])%>
+      <%= f.input data_key,:as => data_hash['data_type'], :required => data_hash["mendatory"], :collection => get_options_array(data_hash['multi_options']), :input_html => {:class => "span8", :rows => 4 },item_wrapper_class: 'inline'%>
     </div>
   <% end %>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-actions">
+    <div class="actions">
+      <%= f.submit 'Save Data', :class => "btn btn-success" %>
+      <%= link_to "Cancel", content_type_data_contents_path(@content_type), :class => "btn btn-danger" %>
+    </div>
   </div>
 <% end %>

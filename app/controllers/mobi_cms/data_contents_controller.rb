@@ -2,7 +2,6 @@ require_dependency "mobi_cms/application_controller"
 
 module MobiCms
   class DataContentsController < ApplicationController
-    SINGLE_ATTRIBUTE_META_DATA = {'title' => "", 'unique' => false, 'data_type' => '', 'mendatory' => false, 'errors' => "", 'multi_options' => ''}
     before_filter :get_form
 
     def index
@@ -23,7 +22,7 @@ module MobiCms
 
     def edit
       @data_content = DataContent.find(params[:id])
-      @data_content.parse_and_set_attributes
+      @data_content.parse_and_set_attributes(false)
     end
   
 
