@@ -2,27 +2,24 @@ require_dependency "mobi_cms/application_controller"
 
 module MobiCms
   class ContentTypesController < ApplicationController
-    SINGLE_ATTRIBUTE_META_DATA = {'title' => "", 'unique' => false, 'data_type' => '', 'mendatory' => false, 'errors' => "", 'multi_options' => ''}
+
     def index
       @content_types = ContentType.all
     end
   
-
     def show
       @content_type = ContentType.find(params[:id])
     end
-  
 
     def new
-      @content_type = ContentType.new(:elements => { 0 => SINGLE_ATTRIBUTE_META_DATA})
+      @content_type = ContentType.new(:hashed_elements => { 0 => ContentType::SINGLE_ATTRIBUTE_META_DATA})
     end
   
     def edit
       @content_type = ContentType.find(params[:id])
-      @content_type.elements = JSON.parse(@content_type.content_type_attributes)
+      @content_type.hashed_elements = JSON.parse(@content_type.content_type_attributes)
     end
   
-
     def create
       elements = params.delete(:element)
       @content_type = ContentType.new(:elements => elements, :name => params[:name])
@@ -55,6 +52,5 @@ module MobiCms
     def another_element
       @content_type = ContentType.new
     end
-
   end
 end

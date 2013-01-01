@@ -1,7 +1,9 @@
 module MobiCms
   class ContentType < ActiveRecord::Base
-    attr_accessible :content_type_attributes ,:name ,:elements
-    attr_accessor :elements
+    SINGLE_ATTRIBUTE_META_DATA = {'title' => "", 'unique' => false, 'data_type' => '', 'mendatory' => false, 'errors' => "", 'multi_options' => ''}
+    
+    attr_accessible :content_type_attributes, :name, :elements, :hashed_elements
+    attr_accessor :elements, :hashed_elements
     validates :name, :content_type_attributes, presence: true
     has_many :data_contents  
 
@@ -10,6 +12,7 @@ module MobiCms
 
     private
     def parse_and_set_attributes
+      set_hashed_elements
       errors.add(:base, "No attribute specified") and return if @elements.blank?
 
       @attributes_as_json = {}
@@ -27,9 +30,6 @@ module MobiCms
       end
 
       errors.add(:base, "Somethings is missing for attribute, Please see below:")  if @error_flag
-      element_hash = {}
-      @elements.each_with_index{ |element, index| element_hash[index.to_s] = element}
-      @elements = element_hash
       self.content_type_attributes = @attributes_as_json.to_json
     end
 
@@ -56,6 +56,16 @@ module MobiCms
       else 
         element['multi_options'] = ""
       end
+    end
+    
+    def set_hashed_elements
+      if @elements.blank?
+        @hashed_elements = {0 => SINGLE_ATTRIBUTE_META_DATA}
+        return
+      end
+      element_hash = {}
+      @elements.each_with_index{ |element, index| element_hash[index.to_s] = element}
+      @hashed_elements = element_hash
     end
 
   end
