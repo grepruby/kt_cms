@@ -12,6 +12,8 @@ module MobiCms
 
     def show
       @data_content = DataContent.find(params[:id])
+      template = Liquid::Template.parse @content_type.template
+      @msg_template = template.render 'data' => JSON.parse(@data_content.values)
     end
   
 
@@ -55,6 +57,7 @@ module MobiCms
       @data_content.destroy
       redirect_to content_type_data_contents_path(@content_type), notice: 'Data content was successfully deleted.'
     end
+
 
     private
 

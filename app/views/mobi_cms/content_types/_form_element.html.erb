@@ -29,9 +29,9 @@
         <a href='javascript:void(0);' class='remove btn btn-danger btn-mini button_margin'>Remove</a>  
       <% end %>
     </div>
-    <div class="span5 <%= display_class(element['data_type']) %>" id="options_block">
-      <label class="string required control-label"><abbr>* </abbr>Options</label>
-      <%= text_area_tag 'element[][multi_options]', element["multi_options"] %>
+    <div class="span8 <%= display_class(element['data_type']) %>" id="options_block">
+      <label class="string required control-label"><abbr>* </abbr>Options should be comma(,) separated like one,two,three...</label>
+      <%= text_area_tag 'element[][multi_options]', element["multi_options"], class: "span8" %>
      </div>
   </div>
 </div>

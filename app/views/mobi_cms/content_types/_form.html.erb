@@ -31,6 +31,16 @@
       <%= link_to "<b>Add another Element</b>".html_safe, another_element_content_types_path, :remote => true, class: 'btn btn-primary' %>
     </div>
   </div>
+
+  <div class="row">
+    <div class="span12">
+      <label class="string required control-label"><abbr>* </abbr>Create your Message Template</label>
+      Note: Place holder should be like {{data.first_name}}, {{data.last_name}} for title "First Name", "Last Name" respectively.
+      <%= text_area_tag 'template', @content_type.template, class: "span12", rows: "6" %>
+    </div>
+  </div>
+
+
   <div class="form-actions">
     <input type="submit" value="Save Form Data" name="commit" class="btn btn-success">
     <%= link_to "Cancel", root_path, :class => "btn btn-danger" %>

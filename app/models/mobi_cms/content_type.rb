@@ -2,9 +2,9 @@ module MobiCms
   class ContentType < ActiveRecord::Base
     SINGLE_ATTRIBUTE_META_DATA = {'title' => "", 'unique' => false, 'data_type' => '', 'mendatory' => false, 'errors' => "", 'multi_options' => ''}
     
-    attr_accessible :content_type_attributes, :name, :elements, :hashed_elements
+    attr_accessible :content_type_attributes, :name, :elements, :hashed_elements, :template
     attr_accessor :elements, :hashed_elements
-    validates :name, :content_type_attributes, presence: true
+    validates :name, :content_type_attributes, :template, presence: true
     has_many :data_contents  
 
     before_validation :parse_and_set_attributes

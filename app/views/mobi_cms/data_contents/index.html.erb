@@ -12,6 +12,7 @@
     <td>
       <%= link_to 'Edit', edit_content_type_data_content_path(@content_type, data_content), class: 'btn btn-mini' %>
       <%= link_to 'Destroy',content_type_data_content_path(@content_type, data_content), method: :delete, class: 'btn btn-danger btn-mini', data: { confirm: 'Are you sure?' } %>
+      <%= link_to 'Show', content_type_data_content_path(@content_type, data_content), class: 'btn btn-info btn-mini' %>
     </td>
   </tr>
 <% end %>

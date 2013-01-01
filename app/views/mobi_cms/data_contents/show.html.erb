@@ -1,15 +1,9 @@
-<p id="notice"><%= notice %></p>
+<legend>Template</legend>
 
-<p>
-  <b>Content type:</b>
-  <%= @data_content.content_type %>
-</p>
+<div class="form-actions">
 
-<p>
-  <b>Values:</b>
-  <%= @data_content.values %>
-</p>
+<%= @msg_template %>
+<br/><br/><br/>
+<%= link_to 'Back', content_type_data_contents_path(@content_type), class: 'btn btn-inverse' %>
 
-
-<%= link_to 'Edit', edit_data_content_path(@data_content) %> |
-<%= link_to 'Back', data_contents_path %>
+</div>

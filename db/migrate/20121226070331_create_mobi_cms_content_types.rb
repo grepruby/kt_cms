@@ -3,6 +3,7 @@ class CreateMobiCmsContentTypes < ActiveRecord::Migration
     create_table :mobi_cms_content_types do |t|
       t.string :name
       t.text :content_type_attributes
+      t.text :template
 
       t.timestamps
     end

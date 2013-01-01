@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(:version => 20121228064028) do
   create_table "mobi_cms_content_types", :force => true do |t|
     t.string   "name"
     t.text     "content_type_attributes"
+    t.text     "template"
     t.datetime "created_at",              :null => false
     t.datetime "updated_at",              :null => false
   end
