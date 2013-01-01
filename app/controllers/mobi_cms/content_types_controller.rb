@@ -21,8 +21,7 @@ module MobiCms
     end
   
     def create
-      elements = params.delete(:element)
-      @content_type = ContentType.new(:elements => elements, :name => params[:name], :template => params[:template])
+      @content_type = ContentType.new(params[:content_type])
       if @content_type.save
         redirect_to content_types_url, :success => "Content type was successfully created."
       else
@@ -32,10 +31,7 @@ module MobiCms
   
     def update
       @content_type = ContentType.find(params[:id])
-      @content_type.elements = params.delete(:element)
-      @content_type.name = params[:name]
-      @content_type.template = params[:template]
-      if @content_type.save
+      if @content_type.update_attributes(params[:content_type])
         redirect_to content_types_url, notice: 'Content type was successfully updated.' 
       else
         render action: "edit"

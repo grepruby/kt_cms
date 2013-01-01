@@ -14,7 +14,7 @@
   <div class="row">
     <div class="span4">
       <label class="string required control-label"><abbr>* </abbr>Name</label>
-      <%= text_field_tag 'name', @content_type.name %>
+      <%= text_field_tag 'content_type[name]', @content_type.name %>
     </div>
   </div>
 
@@ -34,9 +34,9 @@
 
   <div class="row">
     <div class="span12">
-      <label class="string required control-label"><abbr>* </abbr>Create your Message Template</label>
+      <label class="string required control-label"><abbr>* </abbr>Create your Template</label>
       Note: Place holder should be like {{data.first_name}}, {{data.last_name}} for title "First Name", "Last Name" respectively.
-      <%= text_area_tag 'template', @content_type.template, class: "span12", rows: "6" %>
+      <%= text_area_tag 'content_type[template]', @content_type.template, class: "span12", rows: "6" %>
     </div>
   </div>
 

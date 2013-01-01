@@ -10,11 +10,11 @@
   <div class="row">
     <div class="span4">
       <label class="string required control-label"><abbr>* </abbr>Title</label>
-      <%= text_field_tag 'element[][title]', element["title"] %>
+      <%= text_field_tag 'content_type[elements][][title]', element["title"] %>
      </div>
     <div class="span4">
       <label class="string required control-label"><abbr>* </abbr>Data Type</label>
-      <%= select_tag("element[][data_type]", options_for_select([["Text","string"],["Paragraph text","text"],["Multiple choice", "radio"],["Checkboxes", "check_boxes"],["Choose from a list", "select"]], element["data_type"]), class: "options") %>
+      <%= select_tag("content_type[elements][][data_type]", options_for_select([["Text","string"],["Paragraph text","text"],["Multiple choice", "radio"],["Checkboxes", "check_boxes"],["Choose from a list", "select"]], element["data_type"]), class: "options") %>
      </div>
     <div class="span1">
       <!--<label class="string required control-label">Unique</label>-->
@@ -22,7 +22,7 @@
      </div>
     <div class="span1">
       <label class="string required control-label">Mendatory</label>
-      <%= check_box_tag 'element[][mendatory]', 'yes', element["mendatory"] %>
+      <%= check_box_tag 'content_type[elements][][mendatory]', 'yes', element["mendatory"] %>
      </div>
     <div class="span1">
       <% if index != 0 %>
@@ -31,7 +31,7 @@
     </div>
     <div class="span8 <%= display_class(element['data_type']) %>" id="options_block">
       <label class="string required control-label"><abbr>* </abbr>Options should be comma(,) separated like one,two,three...</label>
-      <%= text_area_tag 'element[][multi_options]', element["multi_options"], class: "span8" %>
+      <%= text_area_tag 'content_type[elements][][multi_options]', element["multi_options"], class: "span8" %>
      </div>
   </div>
 </div>
