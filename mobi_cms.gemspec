@@ -7,9 +7,9 @@ require "mobi_cms/version"
 Gem::Specification.new do |s|
   s.name        = "mobi_cms"
   s.version     = MobiCms::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
+  s.authors     = ["Priya"]
+  s.email       = ["petoskey@mobizard.com"]
+  s.homepage    = "https://github.com/petoskey/mobi_cms"
   s.summary     = "TODO: Summary of MobiCms."
   s.description = "TODO: Description of MobiCms."
 
@@ -17,7 +17,10 @@ Gem::Specification.new do |s|
   s.test_files = Dir["test/**/*"]
 
   s.add_dependency "rails", "~> 3.2.9"
-  # s.add_dependency "jquery-rails"
+  s.add_dependency "jquery-rails"
+  s.add_dependency "simple_form"
+  s.add_dependency 'sass-rails', '~> 3.2'
+  s.add_dependency 'bootstrap-sass', '~> 2.2.2.0'
+  s.add_dependency "liquid"
 
-  s.add_development_dependency "sqlite3"
 end
