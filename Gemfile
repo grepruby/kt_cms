@@ -9,8 +9,8 @@ gemspec
 gem "jquery-rails"
 gem 'mysql2'
 gem 'simple_form'
-gem 'sass-rails', '~> 3.2'
-gem 'bootstrap-sass', '~> 2.2.2.0'
+gem 'sass-rails'
+gem 'bootstrap-sass'
 gem 'liquid'
 
 # Declare any dependencies that are still in development here instead of in
