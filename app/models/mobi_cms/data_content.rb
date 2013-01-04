@@ -10,6 +10,7 @@ module MobiCms
 
     belongs_to :content_type
 
+
     def init
       return unless content_type_present?
       inputs_hash = JSON.parse(self.content_type.content_type_attributes)
@@ -28,7 +29,10 @@ module MobiCms
         @invalid_flag = false
         attr_hash.each do |content_key, content_value|
           self.send("#{content_key}=", content_value)
-          validate_data_content content_key, content_value if should_validate#avoid edit case
+          if should_validate#avoid edit case
+            validate_data_content content_key, content_value 
+            validates_attr_length content_key, content_value
+          end
         end
         self.values = @invalid_flag ? nil : self.contents.to_json
       else
@@ -37,6 +41,13 @@ module MobiCms
     end
 
     protected
+
+    def validates_attr_length content_key, content_value
+      max_val = @content_type_hash[content_key]["maxlength"]
+      min_val = @content_type_hash[content_key]["minlength"]
+      errors.add content_key, "must have maximum #{max_val} length" if max_val.present? and (max_val.to_i <= content_value.length)
+      errors.add content_key, "must have minimum #{min_val} length" if min_val.present? and (min_val.to_i >= content_value.length)      
+    end
 
     def validate_data_content content_key, content_value
       # Validates for mendatory

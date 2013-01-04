@@ -12,7 +12,7 @@
   <% end %>
   <% JSON.parse(@content_type.content_type_attributes).each do |data_key, data_hash| %>
     <div class="field">
-      <%= f.input data_key,:as => data_hash['data_type'], :required => data_hash["mendatory"], :collection => get_options_array(data_hash['multi_options']), :input_html => {:class => "span8", :rows => 4 },item_wrapper_class: 'inline'%>
+      <%= f.input data_key,:as => data_hash['data_type'], :required => data_hash["mendatory"], :collection => get_options_array(data_hash['multi_options']), :input_html => {:class => "span8",:maxlength => data_hash["maxlength"] },item_wrapper_class: 'inline'%>
     </div>
   <% end %>
   <div class="form-actions">

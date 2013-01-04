@@ -1,6 +1,6 @@
 module MobiCms
   class ContentType < ActiveRecord::Base
-    SINGLE_ATTRIBUTE_META_DATA = {'title' => "", 'unique' => false, 'data_type' => '', 'mendatory' => false, 'errors' => "", 'multi_options' => ''}
+    SINGLE_ATTRIBUTE_META_DATA = {'title' => "", 'unique' => false, 'data_type' => '', 'mendatory' => false, 'errors' => "", 'multi_options' => '', 'maxlength' => "", "minlength" => ""}
     
     DATA_TYPES = [
       ["Text","string"],["Paragraph text","text"],
@@ -8,7 +8,8 @@ module MobiCms
       ["Choose from a list", "select"], ["Integer", "integer"],
       ["Boolean", "boolean"], ["Decimal", "decimal"],
       ["Float", "float"], ["Date time", "datetime"],
-      ["Date", "date"], ["Time", "time"]
+      ["Date", "date"], ["Time", "time"], ["Email", "email"],
+      ["Url", "url"], ["file", "File"]
     ]
     
     attr_accessible :content_type_attributes, :name, :elements, :hashed_elements, :template
@@ -17,8 +18,8 @@ module MobiCms
     has_many :data_contents  
 
     before_validation :parse_and_set_attributes
-    NOT_MULTI_OPTIONS = ["text", "string"]
-
+    MULTI_OPTIONS = ["radio", "check_boxes", "select"]
+    STRING_OPTIONS = ["text", "string"]
     private
     def parse_and_set_attributes
       set_hashed_elements
@@ -32,6 +33,8 @@ module MobiCms
         single_element['title'] = el['title']
         single_element['multi_options'] = el['multi_options']
         single_element['data_type'] = el['data_type']
+        single_element['maxlength'] = el['maxlength']
+        single_element['minlength'] = el['minlength']
         single_element['mendatory'] = el['mendatory'].blank? ? false : true
         single_element['unique'] = el['unique'].blank? ? false : true
         key = el['title'].gsub(" ", "_").underscore
@@ -54,10 +57,23 @@ module MobiCms
       else
         validate_multi_options(element)
       end
+      validate_length_options(element)
+    end
+
+    def validate_length_options(element)
+      if element['maxlength'].present? and element['maxlength'].to_i == 0
+        element['errors'] = "Max length must be Integer"
+        @error_flag = true
+      end
+
+      if element['minlength'].present? and element['minlength'].to_i == 0
+        element['errors'] = "Min length must be Integer"
+        @error_flag = true
+      end
     end
 
     def validate_multi_options(element)
-      unless NOT_MULTI_OPTIONS.include? element['data_type']
+      if MULTI_OPTIONS.include? element['data_type']
         if element['multi_options'].blank?
           element['errors'] = "Options can't be blank"
           @error_flag = true
