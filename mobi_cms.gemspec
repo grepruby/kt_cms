@@ -10,8 +10,8 @@ Gem::Specification.new do |s|
   s.authors     = ["Priya"]
   s.email       = ["petoskey@mobizard.com"]
   s.homepage    = "https://github.com/petoskey/mobi_cms"
-  s.summary     = "TODO: Summary of MobiCms."
-  s.description = "TODO: Description of MobiCms."
+  s.summary     = "An engine for managing customer data types and their content"
+  s.description = "An engine for managing customer data types and their content"
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
   s.test_files = Dir["test/**/*"]

@@ -2,6 +2,15 @@ module MobiCms
   class ContentType < ActiveRecord::Base
     SINGLE_ATTRIBUTE_META_DATA = {'title' => "", 'unique' => false, 'data_type' => '', 'mendatory' => false, 'errors' => "", 'multi_options' => ''}
     
+    DATA_TYPES = [
+      ["Text","string"],["Paragraph text","text"],
+      ["Radio buttons", "radio"],["Checkboxes", "check_boxes"],
+      ["Choose from a list", "select"], ["Integer", "integer"],
+      ["Boolean", "boolean"], ["Decimal", "decimal"],
+      ["Float", "float"], ["Date time", "datetime"],
+      ["Date", "date"], ["Time", "time"]
+    ]
+    
     attr_accessible :content_type_attributes, :name, :elements, :hashed_elements, :template
     attr_accessor :elements, :hashed_elements
     validates :name, :content_type_attributes, :template, presence: true
