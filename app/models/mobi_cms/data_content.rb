@@ -29,9 +29,10 @@ module MobiCms
         @invalid_flag = false
         attr_hash.each do |content_key, content_value|
           self.send("#{content_key}=", content_value)
-          if should_validate#avoid edit case
+          if should_validate #avoid edit case
             validate_data_content content_key, content_value 
-            validates_attr_length content_key, content_value
+            validates_attr_length(content_key, content_value, @content_type_hash[content_key]["maxlength"], @content_type_hash[content_key]["minlength"])
+            validates_attribute_value(content_key, content_value)
           end
         end
         self.values = @invalid_flag ? nil : self.contents.to_json
@@ -42,9 +43,30 @@ module MobiCms
 
     protected
 
-    def validates_attr_length content_key, content_value
-      max_val = @content_type_hash[content_key]["maxlength"]
-      min_val = @content_type_hash[content_key]["minlength"]
+    def validates_attribute_value(content_key, content_value)
+      attr_type = @content_type_hash[content_key]["data_type"]
+      case attr_type
+      when "integer"
+        validate_attr_for_integer(content_key, content_value)
+      when "boolean"
+        validate_attr_for_boolean(content_key, content_value)
+      else
+        return
+      end
+    end
+
+    # check integer data value
+    def validate_attr_for_integer(content_key, content_value)
+      errors.add content_key, "should be only integer value" if content_value.present? and (content_value.to_i === 0)
+    end
+
+    # check boolean data value
+    def validate_attr_for_boolean(content_key, content_value)
+      errors.add content_key, "should be only boolean value" if content_value.present? and !["1", "0"].include? content_value
+    end
+
+    # check data length
+    def validates_attr_length(content_key, content_value, max_val, min_val)
       errors.add content_key, "must have maximum #{max_val} length" if max_val.present? and (max_val.to_i <= content_value.length)
       errors.add content_key, "must have minimum #{min_val} length" if min_val.present? and (min_val.to_i >= content_value.length)      
     end

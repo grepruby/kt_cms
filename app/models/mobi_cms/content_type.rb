@@ -33,8 +33,13 @@ module MobiCms
         single_element['title'] = el['title']
         single_element['multi_options'] = el['multi_options']
         single_element['data_type'] = el['data_type']
-        single_element['maxlength'] = el['maxlength']
-        single_element['minlength'] = el['minlength']
+        if ContentType::STRING_OPTIONS.include? el['data_type']
+          single_element['maxlength'] = el['maxlength']
+          single_element['minlength'] = el['minlength'] 
+        else
+          single_element['maxlength'] = ""
+          single_element['minlength'] = ""
+        end
         single_element['mendatory'] = el['mendatory'].blank? ? false : true
         single_element['unique'] = el['unique'].blank? ? false : true
         key = el['title'].gsub(" ", "_").underscore
