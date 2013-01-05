@@ -50,9 +50,21 @@ module MobiCms
         validate_attr_for_integer(content_key, content_value)
       when "boolean"
         validate_attr_for_boolean(content_key, content_value)
+      when "email"
+        validate_attr_for_email(content_key, content_value)
+      when "url"
+        validate_attr_for_url(content_key, content_value)
       else
         return
       end
+    end
+
+    def validate_attr_for_url(content_key, content_value)
+errors.add content_key, "should be a valid url" if content_value.present? and (content_value.match(/^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix).nil?)
+    end
+
+    def validate_attr_for_email(content_key, content_value)
+      errors.add content_key, "should be a valid email address" if content_value.present? and (content_value.match(/^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i).nil?)
     end
 
     # check integer data value
