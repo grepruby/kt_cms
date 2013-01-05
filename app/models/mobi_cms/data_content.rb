@@ -54,22 +54,47 @@ module MobiCms
         validate_attr_for_email(content_key, content_value)
       when "url"
         validate_attr_for_url(content_key, content_value)
+      when "float"
+        validate_attr_for_float(content_key, content_value)
       else
         return
       end
     end
-
+  
+    # check url data value
     def validate_attr_for_url(content_key, content_value)
-errors.add content_key, "should be a valid url" if content_value.present? and (content_value.match(/^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix).nil?)
+      errors.add content_key, "should be a valid url" if content_value.present? and (content_value.match(/^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix).nil?)
     end
 
+    # check email data value
     def validate_attr_for_email(content_key, content_value)
       errors.add content_key, "should be a valid email address" if content_value.present? and (content_value.match(/^([\w\.%\+\-]+)@([\w\-]+\.)+([\w]{2,})$/i).nil?)
     end
 
     # check integer data value
     def validate_attr_for_integer(content_key, content_value)
-      errors.add content_key, "should be only integer value" if content_value.present? and (content_value.to_i === 0)
+      return if content_value.blank?
+      if !is_integer?(content_value)
+        errors.add content_key, "should be only integer value"
+      end
+    end
+
+    # check float data value
+    def validate_attr_for_float(content_key, content_value)
+      return if content_value.blank?
+      if !is_numeric?(content_value)
+        errors.add content_key, "should be only numeric value"
+      end
+    end
+
+    # check integer value
+    def is_integer?(i)
+      !!i.match(/^[0-9]+$/)
+    end
+
+    # check numeric value
+    def is_numeric?(i)
+      true if Float(i) rescue false
     end
 
     # check boolean data value

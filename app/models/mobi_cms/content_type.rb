@@ -6,7 +6,7 @@ module MobiCms
       ["Text","string"],["Paragraph text","text"],
       ["Radio buttons", "radio"],["Checkboxes", "check_boxes"],
       ["Choose from a list", "select"], ["Integer", "integer"],
-      ["Boolean", "boolean"], ["Decimal", "decimal"],
+      ["Boolean", "boolean"],
       ["Float", "float"], ["Date time", "datetime"],
       ["Date", "date"], ["Time", "time"], ["Email", "email"],
       ["Url", "url"], ["file", "File"]
