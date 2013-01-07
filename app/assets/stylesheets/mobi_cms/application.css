@@ -10,6 +10,7 @@
  *
  *= require bootstrap
  *= custom_style
+ *= require jquery.ui.datepicker
  *= require_self
  *= require_tree .
  */

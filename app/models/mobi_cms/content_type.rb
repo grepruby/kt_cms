@@ -7,8 +7,8 @@ module MobiCms
       ["Radio buttons", "radio"],["Checkboxes", "check_boxes"],
       ["Choose from a list", "select"], ["Integer", "integer"],
       ["Boolean", "boolean"],
-      ["Float", "float"], ["Date time", "datetime"],
-      ["Date", "date"], ["Time", "time"], ["Email", "email"],
+      ["Float", "float"], ["Date time", "ui_date_time_picker"],
+      ["Date", "date_picker"], ["Time", "time_picker"], ["Email", "email"],
       ["Url", "url"], ["file", "File"]
     ]
     
