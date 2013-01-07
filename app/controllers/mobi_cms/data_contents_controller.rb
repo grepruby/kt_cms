@@ -5,8 +5,8 @@ module MobiCms
     before_filter :get_form
 
     def index
+      @content_attributes = JSON.parse(@content_type.content_type_attributes).collect{|title,value_hash| title}
       @data_contents = @content_type.data_contents
-
     end
   
 

@@ -104,8 +104,8 @@ module MobiCms
 
     # check data length
     def validates_attr_length(content_key, content_value, max_val, min_val)
-      errors.add content_key, "must have maximum #{max_val} length" if max_val.present? and (max_val.to_i <= content_value.length)
-      errors.add content_key, "must have minimum #{min_val} length" if min_val.present? and (min_val.to_i >= content_value.length)      
+      errors.add content_key, "must have maximum #{max_val} length" if max_val.present? and (max_val.to_i < content_value.length)
+      errors.add content_key, "must have minimum #{min_val} length" if min_val.present? and (min_val.to_i > content_value.length)      
     end
 
     def validate_data_content content_key, content_value
