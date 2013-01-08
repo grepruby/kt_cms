@@ -56,11 +56,41 @@ module MobiCms
         validate_attr_for_url(content_key, content_value)
       when "float"
         validate_attr_for_float(content_key, content_value)
+      when "date_picker"
+        validate_attr_for_date(content_key, content_value)
+      when "ui_date_time_picker"
+        validate_attr_for_datetime(content_key, content_value)
+      when "time_picker"
+        validate_attr_for_time(content_key, content_value)
       else
         return
       end
     end
-  
+
+    # check date data value
+    def validate_attr_for_date(content_key, content_value)
+      begin Date.strptime(content_value.to_s, "%m/%d/%Y")
+      rescue ArgumentError
+        errors.add content_key, "should be a date format"
+      end
+    end
+
+    # check datetime data value
+    def validate_attr_for_datetime(content_key, content_value)
+      begin DateTime.strptime(content_value.to_s, "%m/%d/%Y %H:%M")
+      rescue ArgumentError
+        errors.add content_key, "should be a datetime format"
+      end
+    end
+
+    # check time data value
+    def validate_attr_for_time(content_key, content_value)
+      begin Time.parse(content_value)
+      rescue ArgumentError
+        errors.add content_key, "should be a datetime format"
+      end
+    end  
+
     # check url data value
     def validate_attr_for_url(content_key, content_value)
       errors.add content_key, "should be a valid url" if content_value.present? and (content_value.match(/^(http|https):\/\/[a-z0-9]+([\-\.]{1}[a-z0-9]+)*\.[a-z]{2,5}(:[0-9]{1,5})?(\/.*)?$/ix).nil?)
