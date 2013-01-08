@@ -69,6 +69,7 @@ module MobiCms
 
     # check date data value
     def validate_attr_for_date(content_key, content_value)
+      return if content_value.blank?
       begin Date.strptime(content_value.to_s, "%m/%d/%Y")
       rescue ArgumentError
         errors.add content_key, "should be a date format"
@@ -77,6 +78,7 @@ module MobiCms
 
     # check datetime data value
     def validate_attr_for_datetime(content_key, content_value)
+      return if content_value.blank?
       begin DateTime.strptime(content_value.to_s, "%m/%d/%Y %H:%M")
       rescue ArgumentError
         errors.add content_key, "should be a datetime format"
@@ -85,6 +87,7 @@ module MobiCms
 
     # check time data value
     def validate_attr_for_time(content_key, content_value)
+      return if content_value.blank?
       begin Time.parse(content_value)
       rescue ArgumentError
         errors.add content_key, "should be a datetime format"
