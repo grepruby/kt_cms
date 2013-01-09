@@ -13,6 +13,7 @@ gem 'sass-rails'
 gem 'bootstrap-sass'
 gem 'liquid'
 gem 'jquery-ui-rails'
+gem 'carrierwave'
 
 
 # Declare any dependencies that are still in development here instead of in
@@ -21,6 +22,5 @@ gem 'jquery-ui-rails'
 # your gem to rubygems.org.
 
 # To use debugger
-group :test do
+
   gem 'debugger'
-end

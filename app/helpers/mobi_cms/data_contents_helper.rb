@@ -7,8 +7,20 @@ module MobiCms
         checkbox_data(data_key, data_value)
       when "boolean"
         boolean_data(data_key, data_value)
+      when "file"
+        file_data(data_key, data_value)
       else
         return data_value
+      end
+    end
+
+    def file_data(data_key, data_value)
+      return "" if data_value.blank?
+      asset = CmsAsset.find(data_value)
+      if asset.present?
+        root_url + asset.file.url
+      else
+        return ""
       end
     end
 

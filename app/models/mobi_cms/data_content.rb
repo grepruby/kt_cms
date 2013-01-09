@@ -5,7 +5,9 @@ module MobiCms
     after_initialize :init
     before_validation :parse_and_set_attributes
     after_validation :remove_unwanted_error_messages
-
+    before_create :create_other_attributes
+    before_update :update_other_attributes
+    after_destroy :remove_assets
     validates :values, :content_type_id, presence: true
 
     belongs_to :content_type
@@ -19,23 +21,77 @@ module MobiCms
       end
     end
 
+    def update_other_attributes
+      attr_hash = self.contents.blank? ? (JSON.parse self.values) : self.contents
+      @content_type_hash = JSON.parse self.content_type.content_type_attributes
+      @content_type_hash.each do |content_key, content_option|
+        content_value = attr_hash[content_key]
+        if (content_option["data_type"] == "file")
+          if content_value.present?
+            cms_upload = CmsAsset.create(:file => content_value)
+            self.contents[content_key] = cms_upload.id
+            self.values = self.contents.to_json
+            delete_cms_asset content_key
+          else
+            exist_hash = JSON.parse(DataContent.find(self.id).values)
+            self.contents[content_key] = exist_hash[content_key]
+            self.values = self.contents.to_json
+          end
+        end
+      end
+    end
+
+    def remove_assets
+      exist_hash = JSON.parse(self.values)
+      content_type_hash = JSON.parse self.content_type.content_type_attributes
+      content_type_hash.each do |content_key, content_option|
+        if (content_option["data_type"] == "file") and exist_hash[content_key].present?
+          old = CmsAsset.find(exist_hash[content_key])
+          old.destroy if old.present?
+        end
+      end
+    end
+
+    def delete_cms_asset(content_key)
+      exist_hash = JSON.parse(DataContent.find(self.id).values)
+      old = CmsAsset.find(exist_hash[content_key]) if exist_hash[content_key].present?
+      old.destroy if old.present?
+    end
+
+    def create_other_attributes
+      attr_hash = self.contents.blank? ? (JSON.parse self.values) : self.contents
+      @content_type_hash = JSON.parse self.content_type.content_type_attributes
+      @content_type_hash.each do |content_key, content_option|
+        content_value = attr_hash[content_key]
+        if (content_option["data_type"] == "file") and content_value.present?
+          cms_upload = CmsAsset.create(:file => content_value)
+          self.contents[content_key] = cms_upload.id
+          self.values = self.contents.to_json
+        end
+      end
+    end
+
       # Assign values to instance variables
     def parse_and_set_attributes(should_validate = true)
-      return unless content_type_present?
 
+      return unless content_type_present?
       attr_hash = self.contents.blank? ? (JSON.parse self.values) : self.contents
       unless attr_hash.blank?
         @content_type_hash = JSON.parse self.content_type.content_type_attributes
         @invalid_flag = false
-        attr_hash.each do |content_key, content_value|
+        @content_type_hash.each do |content_key, content_option|
+          content_value = attr_hash[content_key]
           self.send("#{content_key}=", content_value)
+          
           if should_validate #avoid edit case
             validate_data_content content_key, content_value 
-            validates_attr_length(content_key, content_value, @content_type_hash[content_key]["maxlength"], @content_type_hash[content_key]["minlength"])
+            validates_attr_length(content_key, content_value, content_option["maxlength"], content_option["minlength"])
             validates_attribute_value(content_key, content_value)
           end
         end
+
         self.values = @invalid_flag ? nil : self.contents.to_json
+
       else
         self.values = nil
       end
@@ -137,8 +193,8 @@ module MobiCms
 
     # check data length
     def validates_attr_length(content_key, content_value, max_val, min_val)
-      errors.add content_key, "must have maximum #{max_val} length" if max_val.present? and (max_val.to_i < content_value.length)
-      errors.add content_key, "must have minimum #{min_val} length" if min_val.present? and (min_val.to_i > content_value.length)      
+      errors.add content_key, "must have maximum #{max_val} length" if content_value.present? and max_val.present? and (max_val.to_i < content_value.length)
+      errors.add content_key, "must have minimum #{min_val} length" if content_value.present? and min_val.present? and (min_val.to_i > content_value.length)      
     end
 
     def validate_data_content content_key, content_value

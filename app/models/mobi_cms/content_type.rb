@@ -9,7 +9,7 @@ module MobiCms
       ["Boolean", "boolean"],
       ["Float", "float"], ["Date time", "ui_date_time_picker"],
       ["Date", "date_picker"], ["Time", "time_picker"], ["Email", "email"],
-      ["Url", "url"], ["file", "File"]
+      ["Url", "url"], ["File", "file"]
     ]
     
     attr_accessible :content_type_attributes, :name, :elements, :hashed_elements, :template
