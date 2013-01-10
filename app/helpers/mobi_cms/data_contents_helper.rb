@@ -16,7 +16,7 @@ module MobiCms
 
     def file_data(data_key, data_value)
       return "" if data_value.blank?
-      asset = CmsAsset.find(data_value)
+      asset = CmsAsset.where(:id => data_value)[0]
       if asset.present?
         root_url + asset.file.url
       else

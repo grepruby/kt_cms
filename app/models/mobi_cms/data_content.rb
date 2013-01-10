@@ -9,6 +9,7 @@ module MobiCms
     before_update :update_other_attributes
     after_destroy :remove_assets
     validates :values, :content_type_id, presence: true
+    FILE_OPTIONS = ["file"]
 
     belongs_to :content_type
 
@@ -22,11 +23,12 @@ module MobiCms
     end
 
     def update_other_attributes
-      attr_hash = self.contents.blank? ? (JSON.parse self.values) : self.contents
       @content_type_hash = JSON.parse self.content_type.content_type_attributes
+      return unless file_data_type_include?#check file data type
+      attr_hash = self.contents.blank? ? (JSON.parse self.values) : self.contents
       @content_type_hash.each do |content_key, content_option|
         content_value = attr_hash[content_key]
-        if (content_option["data_type"] == "file")
+        if FILE_OPTIONS.include?(content_option["data_type"])
           if content_value.present?
             cms_upload = CmsAsset.create(:file => content_value)
             self.contents[content_key] = cms_upload.id
@@ -41,12 +43,18 @@ module MobiCms
       end
     end
 
+    def file_data_type_include?
+      @content_type_hash.collect{ |type_hash,val| val["data_type"] }.select{|data_type| FILE_OPTIONS.include?(data_type)}.present?
+    end
+
     def remove_assets
+      @content_type_hash = JSON.parse self.content_type.content_type_attributes
+      return unless file_data_type_include?#check file data type
       exist_hash = JSON.parse(self.values)
       content_type_hash = JSON.parse self.content_type.content_type_attributes
       content_type_hash.each do |content_key, content_option|
-        if (content_option["data_type"] == "file") and exist_hash[content_key].present?
-          old = CmsAsset.find(exist_hash[content_key])
+        if FILE_OPTIONS.include?(content_option["data_type"]) and exist_hash[content_key].present?
+          old = CmsAsset.where(:id => exist_hash[content_key])[0]
           old.destroy if old.present?
         end
       end
@@ -54,16 +62,17 @@ module MobiCms
 
     def delete_cms_asset(content_key)
       exist_hash = JSON.parse(DataContent.find(self.id).values)
-      old = CmsAsset.find(exist_hash[content_key]) if exist_hash[content_key].present?
+      old = CmsAsset.where(:id => exist_hash[content_key])[0] if exist_hash[content_key].present?
       old.destroy if old.present?
     end
 
     def create_other_attributes
-      attr_hash = self.contents.blank? ? (JSON.parse self.values) : self.contents
       @content_type_hash = JSON.parse self.content_type.content_type_attributes
+      return unless file_data_type_include?#check file data type
+      attr_hash = self.contents.blank? ? (JSON.parse self.values) : self.contents
       @content_type_hash.each do |content_key, content_option|
         content_value = attr_hash[content_key]
-        if (content_option["data_type"] == "file") and content_value.present?
+        if FILE_OPTIONS.include?(content_option["data_type"]) and content_value.present?
           cms_upload = CmsAsset.create(:file => content_value)
           self.contents[content_key] = cms_upload.id
           self.values = self.contents.to_json
@@ -73,7 +82,6 @@ module MobiCms
 
       # Assign values to instance variables
     def parse_and_set_attributes(should_validate = true)
-
       return unless content_type_present?
       attr_hash = self.contents.blank? ? (JSON.parse self.values) : self.contents
       unless attr_hash.blank?
@@ -89,9 +97,7 @@ module MobiCms
             validates_attribute_value(content_key, content_value)
           end
         end
-
         self.values = @invalid_flag ? nil : self.contents.to_json
-
       else
         self.values = nil
       end
