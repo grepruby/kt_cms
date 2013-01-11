@@ -1,7 +1,5 @@
-require_dependency "mobi_cms/application_controller"
-
 module MobiCms
-  class DataContentsController < ApplicationController
+  class DataContentsController < MobiCms::ApplicationController
     before_filter :get_form
 
     def index

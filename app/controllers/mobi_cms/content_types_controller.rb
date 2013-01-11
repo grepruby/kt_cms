@@ -1,7 +1,5 @@
-require_dependency "mobi_cms/application_controller"
-
 module MobiCms
-  class ContentTypesController < ApplicationController
+  class ContentTypesController < MobiCms::ApplicationController
     before_filter :authenticate_mobi_admin_user
 
     def index

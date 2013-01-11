@@ -1,5 +1,5 @@
 module MobiCms
-  class ApplicationController < ActionController::Base
+  class MobiCms::ApplicationController < ApplicationController
     layout 'mobi_cms/application'
 
 

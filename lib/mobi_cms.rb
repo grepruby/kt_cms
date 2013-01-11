@@ -1,7 +1,7 @@
 require "mobi_cms/engine"
 
 module MobiCms
-  mattr_accessor :user_class
+  mattr_accessor :user_class, :sign_in_path
   
    class << self
     
