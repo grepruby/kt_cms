@@ -10,15 +10,16 @@ module MobiCms
         session["user_return_to"] = request.fullpath
         flash.alert = "Please signed In"
         devise_route = "new_#{MobiCms.user_class.to_s.underscore}_session_path"
-        sign_in_path = MobiAdmin.sign_in_path ||
+        sign_in_path = MobiCms.sign_in_path ||
           (main_app.respond_to?(devise_route) && main_app.send(devise_route)) ||
           (main_app.respond_to?(:sign_in_path) && main_app.send(:sign_in_path))
         if sign_in_path
           redirect_to sign_in_path
         else
-          raise "MobiCms could not determine the sign in path for your application. Please do one of these things:
-                1) Define sign_in_path in the config/routes.rb of your application like this:
-                or; 2) Set MobiCms.sign_in_path to a String value that represents the location of your sign in form, such as '/users/sign_in'."
+          raise " You'll need to define a 'sign_in_path'' method for Forem to use that points to the sign in path for your application. You can set Forem.sign_in_path to a String inside config/initializers/forem.rb to do this, or you can define it in your config/routes.rb file with a line like this:
+          get '/users/sign_in', :to => 'sers#sign_in'
+
+          Either way, Forem needs one of these two things in order to work properly. Please define them!"
         end
       end
     end
