@@ -2,6 +2,7 @@ require_dependency "mobi_cms/application_controller"
 
 module MobiCms
   class ContentTypesController < ApplicationController
+    before_filter :authenticate_mobi_admin_user
 
     def index
       @content_types = ContentType.all
