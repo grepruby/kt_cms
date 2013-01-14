@@ -1,5 +1,5 @@
 module MobiCms
-  module ContentTypesHelper
+  module Admin::ContentTypesHelper
 
     def display_class(data_type)
       if data_type.present? and ContentType::MULTI_OPTIONS.include? data_type
