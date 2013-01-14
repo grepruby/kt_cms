@@ -1,6 +1,7 @@
 module MobiCms
-  class ContentTypesController < MobiCms::ApplicationController
-    before_filter :authenticate_mobi_admin_user
+  module Admin
+  class ContentTypesController < BaseController
+
 
     def index
       @content_types = ContentType.all
@@ -22,7 +23,7 @@ module MobiCms
     def create
       @content_type = ContentType.new(params[:content_type])
       if @content_type.save
-        redirect_to content_types_url, :success => "Content type was successfully created."
+        redirect_to mobi_cms.admin_content_types_url, :success => "Content type was successfully created."
       else
         render :action => :new
       end
@@ -31,7 +32,7 @@ module MobiCms
     def update
       @content_type = ContentType.find(params[:id])
       if @content_type.update_attributes(params[:content_type])
-        redirect_to content_types_url, notice: 'Content type was successfully updated.' 
+        redirect_to mobi_cms.admin_content_types_url, notice: 'Content type was successfully updated.' 
       else
         render action: "edit"
       end
@@ -42,11 +43,12 @@ module MobiCms
     def destroy
       @content_type = ContentType.find(params[:id])
       @content_type.destroy
-      redirect_to content_types_url 
+      redirect_to mobi_cms.admin_content_types_url, notice: 'Content type was successfully deleted.' 
     end
     
     def another_element
       @content_type = ContentType.new
     end
+  end
   end
 end

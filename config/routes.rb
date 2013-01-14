@@ -1,10 +1,17 @@
 MobiCms::Engine.routes.draw do
-  resources :content_types do 
-    collection do
-      get :another_element
+  namespace "content_type" do 
+    scope ":content_type_id" do
+      resources :data_contents
     end
-    resources :data_contents
   end
 
-  root :to => "content_types#index"
+  namespace :admin do
+    resources :content_types do 
+      collection do
+        get :another_element
+      end
+    end
+  end
+
+  root :to => "dashboard#index"
 end
