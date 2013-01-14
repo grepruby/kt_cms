@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130109082755) do
+ActiveRecord::Schema.define(:version => 20130114104930) do
 
   create_table "mobi_cms_cms_assets", :force => true do |t|
     t.string   "file"
@@ -23,15 +23,25 @@ ActiveRecord::Schema.define(:version => 20130109082755) do
     t.string   "name"
     t.text     "content_type_attributes"
     t.text     "template"
-    t.datetime "created_at",              :null => false
-    t.datetime "updated_at",              :null => false
+    t.datetime "created_at",                                 :null => false
+    t.datetime "updated_at",                                 :null => false
+    t.boolean  "is_active",               :default => false
   end
 
   create_table "mobi_cms_data_contents", :force => true do |t|
     t.integer  "content_type_id"
     t.text     "values"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                         :null => false
+    t.datetime "updated_at",                         :null => false
+    t.boolean  "is_active",       :default => false
+    t.integer  "user_id"
+  end
+
+  create_table "users", :force => true do |t|
+    t.string   "email"
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+    t.boolean  "cms_admin",  :default => false
   end
 
 end

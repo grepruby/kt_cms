@@ -1,3 +1,10 @@
+GIT
+  remote: git@github.com:petoskey/mobi_auth.git
+  revision: f9b29f4f68761f8a4d91beca2c0748a0a297c197
+  specs:
+    mobi_auth (0.0.1)
+      rails (~> 3.2.11)
+
 PATH
   remote: .
   specs:
@@ -131,6 +138,7 @@ DEPENDENCIES
   jquery-rails
   jquery-ui-rails
   liquid
+  mobi_auth!
   mobi_cms!
   mysql2
   sass-rails

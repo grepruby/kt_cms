@@ -14,6 +14,7 @@ gem 'bootstrap-sass'
 gem 'liquid'
 gem 'jquery-ui-rails'
 gem 'carrierwave'
+gem 'mobi_auth', git: "git@github.com:petoskey/mobi_auth.git"
 
 
 # Declare any dependencies that are still in development here instead of in

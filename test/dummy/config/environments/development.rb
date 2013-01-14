@@ -34,4 +34,5 @@ Dummy::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+  config.admins = %w{ petoskey@mobizard.com mpatel.ror@gmail.com }
 end
