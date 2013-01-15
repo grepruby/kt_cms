@@ -16,6 +16,10 @@ module MobiCms
         "hide"
       end
     end
+
+    def get_status(is_active)
+      is_active ? "Active" : "In-active"
+    end
     
     def data_type_options
       ContentType::DATA_TYPES
