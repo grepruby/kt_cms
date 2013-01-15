@@ -5,7 +5,7 @@ module MobiCms
 
 
     def index
-      @content_types = ContentType.all
+      @content_types = ContentType.latest
     end
   
     def show

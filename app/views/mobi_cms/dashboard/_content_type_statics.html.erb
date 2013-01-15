@@ -1,0 +1,21 @@
+<h3>Available Content Types</h3>
+
+<table class="table table-hover messages">
+  <tr>
+    <th>Name</th>
+    <th>Opertions</th>
+  </tr>
+
+<% @content_types.each do |content_type| %>
+  <tr>
+    <td><%= content_type.name %></td>
+    <td>
+      <% if cms_admin? %>
+        <%= link_to 'Edit', mobi_cms.edit_admin_content_type_path(content_type), class: 'btn btn-mini' %>
+        <%= link_to 'Destroy', mobi_cms.admin_content_type_path(content_type), method: :delete, class: 'btn btn-danger btn-mini', data: { confirm: 'Are you sure?' } %>
+      <% end %>
+      <%= link_to 'Show Records', content_type_data_contents_path(content_type), class: 'btn btn-info btn-mini' %>
+    </td>
+  </tr>
+<% end %>
+</table>

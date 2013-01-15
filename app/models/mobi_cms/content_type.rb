@@ -18,6 +18,8 @@ module MobiCms
     attr_accessor :elements, :hashed_elements
     validates :name, :content_type_attributes, :template, presence: true 
     has_many :data_contents  
+    scope :latest, order("id DESC")
+    scope :activated, where(:is_active => true)
 
     before_validation :parse_and_set_attributes
     MULTI_OPTIONS = ["radio", "check_boxes", "select"]

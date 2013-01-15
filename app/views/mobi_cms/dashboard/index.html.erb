@@ -1,1 +1,11 @@
-<legend>Hi <%= mobi_cms_user.email %></legend>
+<legend> Dashboard</legend>
+
+<% if cms_admin? %>
+  <%= render :partial => "user_statics" %>
+<% end %>
+
+<%= render :partial => "content_type_statics" %>
+
+<% if cms_admin? %>
+  <%= link_to 'View All Content Types', mobi_cms.admin_content_types_path, class: 'btn btn-primary' %>
+<% end %>
