@@ -12,6 +12,7 @@ module MobiCms
     FILE_OPTIONS = ["file"]
 
     belongs_to :content_type
+    belongs_to :user, :class_name => MobiCms.user_class.to_s
 
 
     def init

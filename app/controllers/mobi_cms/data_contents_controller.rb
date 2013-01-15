@@ -2,6 +2,7 @@ module MobiCms
   class DataContentsController < MobiCms::ApplicationController
     before_filter :authenticate_cms_user
     before_filter :get_form
+    load_and_authorize_resource :class => 'MobiCms::DataContent', :only => [:edit, :update, :destroy]
 
     def index
       @content_attributes = JSON.parse(@content_type.content_type_attributes).collect{|title,value_hash| title}
@@ -62,7 +63,13 @@ module MobiCms
 
     def get_form
       @content_type = ContentType.where(:id => params[:content_type_id])[0]
-      redirect_to mobi_cms.root_url, :notice => "Record not found" and return if @content_type.blank?
+      if @content_type.blank?
+        redirect_to mobi_cms.root_url, :notice => "Record not found" and return 
+      else
+        if !@content_type.is_active and !mobi_cms_user.cms_admin? 
+          redirect_to mobi_cms.root_url, :notice => "You are not authorized to access this page." and return 
+        end
+      end
     end
   end
 end

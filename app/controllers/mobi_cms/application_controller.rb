@@ -1,6 +1,13 @@
 module MobiCms
   class MobiCms::ApplicationController < ApplicationController
     layout 'mobi_cms/application'
+    rescue_from CanCan::AccessDenied do |exception|
+      redirect_to mobi_cms.root_path, :alert => exception.message
+    end
+
+  def current_ability
+    MobiCms::Ability.new(mobi_cms_user)
+  end
 
 
   private
