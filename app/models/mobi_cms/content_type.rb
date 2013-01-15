@@ -11,10 +11,12 @@ module MobiCms
       ["Date", "date_picker"], ["Time", "time_picker"], ["Email", "email"],
       ["Url", "url"], ["File", "file"]
     ]
+
+    STATUS_OPTIONS = [["Active", true], ["In-Active", false]]
     
-    attr_accessible :content_type_attributes, :name, :elements, :hashed_elements, :template
+    attr_accessible :content_type_attributes, :name, :elements, :hashed_elements, :template, :is_active
     attr_accessor :elements, :hashed_elements
-    validates :name, :content_type_attributes, :template, presence: true
+    validates :name, :content_type_attributes, :template, presence: true 
     has_many :data_contents  
 
     before_validation :parse_and_set_attributes

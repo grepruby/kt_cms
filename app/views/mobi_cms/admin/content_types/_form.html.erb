@@ -16,6 +16,10 @@
       <label class="string required control-label"><abbr>* </abbr>Name</label>
       <%= text_field_tag 'content_type[name]', @content_type.name %>
     </div>
+    <div class="span4">
+      <label class="string required control-label"><abbr>* </abbr>Status</label>
+      <%= select_tag('content_type[is_active]', options_for_select(data_type_status_options, @content_type.is_active), class: "options" ) %>
+    </div>
   </div>
 
   <% i = 0 %>

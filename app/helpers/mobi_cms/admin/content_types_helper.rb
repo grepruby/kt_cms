@@ -20,5 +20,9 @@ module MobiCms
     def data_type_options
       ContentType::DATA_TYPES
     end
+
+    def data_type_status_options
+      ContentType::STATUS_OPTIONS
+    end
   end
 end
