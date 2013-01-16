@@ -1,3 +1,4 @@
+require 'cancan'
 module MobiCms
   class MobiCms::ApplicationController < ApplicationController
     layout 'mobi_cms/application'
