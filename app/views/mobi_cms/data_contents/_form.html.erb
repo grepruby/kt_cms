@@ -10,6 +10,10 @@
       </ul>
     </div>
   <% end %>
+    <div class="field">
+      <%= f.input :is_active,:as => "select", :required => false, :collection => data_type_status_options, :label => "Status", :input_html => {:class => "span2"},item_wrapper_class: 'inline'%>
+    </div>
+    <hr/>
   <% JSON.parse(@content_type.content_type_attributes).each do |data_key, data_hash| %>
     <div class="field">
       <%= f.input data_key,:as => data_hash['data_type'], :required => data_hash["mendatory"], :collection => get_options_array(data_hash['multi_options']), :input_html => {:class => "span8",:maxlength => data_hash["maxlength"] },item_wrapper_class: 'inline'%>

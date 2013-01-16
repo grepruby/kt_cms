@@ -1,12 +1,17 @@
 module MobiCms
   class DataContentsController < MobiCms::ApplicationController
-    before_filter :authenticate_cms_user
+    before_filter :authenticate_cms_user, :except => [:index, :show]
     before_filter :get_form
     load_and_authorize_resource :class => 'MobiCms::DataContent', :only => [:edit, :update, :destroy]
 
     def index
       @content_attributes = JSON.parse(@content_type.content_type_attributes).collect{|title,value_hash| title}
-      @data_contents = @content_type.data_contents
+      @data_contents = DataContent.appropriate_records(mobi_cms_user.try(:id), @content_type)
+      if mobi_cms_user.blank?
+        render :action => "public_data_listing", :layout => "layouts/mobi_cms/public"
+      else
+        render :action => "user_data_listing"
+      end
     end
   
 
@@ -14,6 +19,11 @@ module MobiCms
       @data_content = DataContent.find(params[:id])
       template = Liquid::Template.parse @content_type.template
       @msg_template = template.render 'data' => JSON.parse(@data_content.values)
+      if mobi_cms_user
+
+      else
+        render :layout => "layouts/mobi_cms/public"
+      end
     end
   
 
@@ -30,7 +40,8 @@ module MobiCms
 
     def create
       params_content = params.delete(:data_content)
-      @data_content = @content_type.data_contents.build(:contents => params_content)
+      status = params_content.delete(:is_active)
+      @data_content = @content_type.data_contents.build(:contents => params_content, :is_active => status)
       @data_content.user_id = mobi_cms_user.id
       if @data_content.save
         redirect_to content_type_data_contents_path(@content_type), notice: 'Data content was successfully created.'
@@ -43,6 +54,7 @@ module MobiCms
     def update
       params_content = params.delete(:data_content)
       @data_content = DataContent.find(params[:id])
+      @data_content.is_active = params_content.delete(:is_active)
       @data_content.contents = params_content
       if @data_content.update_attributes(params[:data_content])
         redirect_to content_type_data_contents_path(@content_type), notice: 'Data content was successfully updated.'

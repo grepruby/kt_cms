@@ -1,0 +1,27 @@
+<legend>Listing Data Content</legend>
+
+<table class="table table-hover messages">
+  <tr>
+    <% @content_attributes.each do |title| %>
+      <th><%= title.capitalize %></th>
+    <% end %>
+    <th></th>
+  </tr>
+<% content_types = JSON.parse @content_type.content_type_attributes %>
+<% @data_contents.each do |data_content| %>
+  <tr>
+    <% data_hash = JSON.parse(data_content.values) %>
+    <% @content_attributes.each do |title| %>
+      <td><%= display_data_content(content_types[title]['data_type'], data_hash[title]) %></td>
+    <% end %>
+    <td>
+      <% if can? :manage, data_content %>
+        <%= link_to 'Edit', edit_content_type_data_content_path(@content_type, data_content), class: 'btn btn-mini' %>
+        <%= link_to 'Destroy',content_type_data_content_path(@content_type, data_content), method: :delete, class: 'btn btn-danger btn-mini', data: { confirm: 'Are you sure?' } %>
+      <% end %>
+      <%= link_to 'Preview', content_type_data_content_path(@content_type, data_content), class: 'btn btn-info btn-mini' %>
+    </td>
+  </tr>
+<% end %>
+</table>
+

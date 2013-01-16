@@ -5,7 +5,7 @@ module MobiCms
     include CanCan::Ability
 
     def initialize(user)
-      user ||= Forem.user_class.new
+      user ||= MobiCms.user_class.new
       if user
         if user.cms_admin?
           can :manage, MobiCms::ContentType

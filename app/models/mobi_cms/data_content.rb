@@ -1,6 +1,6 @@
 module MobiCms
   class DataContent < ActiveRecord::Base
-    attr_accessible :content_type_id, :values, :contents
+    attr_accessible :content_type_id, :values, :contents, :is_active
     attr_accessor :contents
     after_initialize :init
     before_validation :parse_and_set_attributes
@@ -10,10 +10,16 @@ module MobiCms
     after_destroy :remove_assets
     validates :values, :content_type_id, presence: true
     FILE_OPTIONS = ["file"]
+    scope :latest, order("id DESC")
+    scope :activated, where(:is_active => true)
+    
 
     belongs_to :content_type
     belongs_to :user, :class_name => MobiCms.user_class.to_s
 
+    def self.appropriate_records(user, content_type)
+      user.blank? ? content_type.data_contents.activated.latest : content_type.data_contents.latest
+    end
 
     def init
       return unless content_type_present?

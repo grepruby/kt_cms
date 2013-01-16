@@ -15,6 +15,14 @@ module MobiCms
     end
   end
 
+   def data_type_status_options
+    ContentType::STATUS_OPTIONS
+   end
+
+    def get_status(is_active)
+      is_active ? "Active" : "In-active"
+    end
+
    def get_options_array(options_str)
       options_str.split(",")
     end
