@@ -53,6 +53,16 @@ module MobiCms
         end
       end
 
+      def add_mobi_cms_asset_uploader
+        path = "#{Rails.root}/app/uploaders/cms_asset_uploader.rb"
+        if File.exists?(path)
+          puts "Skipping app/uploaders/cms_asset_uploader.rb creation, as file already exists!"
+        else
+          puts "Adding mobi_cms asset uploder (app/uploaders/cms_asset_uploader.rb)..."
+          template "cms_asset_uploader.rb", path
+        end
+      end
+
       def run_migrations
         unless options["no-migrate"]
           puts "Running rake db:migrate"
