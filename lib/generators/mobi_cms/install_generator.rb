@@ -108,7 +108,7 @@ output += step("`rake db:migrate` was run, running all the migrations against yo
         output += %Q{\nAnd finally:
 
 #{step("We told you that MobiCms has been successfully installed and walked you through the steps.")}}
-
+ output += step("To support Amazon S3 for MobiCms file input data, follow this url: https://github.com/jnicklas/carrierwave#using-amazon-s3\n")
 
         output += "Thanks for using MobiCms!"
         puts output
