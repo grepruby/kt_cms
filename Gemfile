@@ -14,7 +14,7 @@ gem 'bootstrap-sass'
 gem 'liquid'
 gem 'jquery-ui-rails'
 gem 'carrierwave'
-gem 'mobi_auth', git: "git@github.com:petoskey/mobi_auth.git"
+gem 'mobi_auth', git: 'git@github.com:petoskey/mobi_auth.git', branch: 'mukesh'
 gem 'cancan'
 
 

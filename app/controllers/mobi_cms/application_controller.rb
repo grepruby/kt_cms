@@ -14,7 +14,7 @@ module MobiCms
   private
 
   def cms_admin?
-    mobi_cms_user && mobi_cms_user.cms_admin
+    mobi_cms_user && send(MobiCms.admin_user)
   end
   helper_method :cms_admin?
 

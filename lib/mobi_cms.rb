@@ -2,7 +2,7 @@ require "mobi_cms/engine"
 require 'carrierwave'
 
 module MobiCms
-  mattr_accessor :user_class, :sign_in_path
+  mattr_accessor :user_class, :sign_in_path, :admin_user
   
    class << self
     

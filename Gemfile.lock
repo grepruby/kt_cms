@@ -1,8 +1,9 @@
 GIT
   remote: git@github.com:petoskey/mobi_auth.git
-  revision: f9b29f4f68761f8a4d91beca2c0748a0a297c197
+  revision: fd63431e3d881e513ad946a8671d71adf50a9bfb
+  branch: mukesh
   specs:
-    mobi_auth (0.0.1)
+    mobi_auth (0.0.3)
       rails (~> 3.2.11)
 
 PATH
