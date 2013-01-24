@@ -4,9 +4,9 @@ module MobiCms
   class Ability
     include CanCan::Ability
     def initialize(user)
-      user ||= MobiCms.user_class.new
+
       if user
-        if true
+        if user.is_admin?
           can :manage, MobiCms::ContentType
           can :manage, MobiCms::DataContent
         else
