@@ -1,19 +1,27 @@
 require 'cancan'
 module MobiCms
   class MobiCms::ApplicationController < ApplicationController
-    layout 'mobi_cms/application'
     before_filter :conf_authenticate_option
 
     rescue_from CanCan::AccessDenied do |exception|
       redirect_to mobi_cms.root_path, :alert => exception.message
     end
 
-  def current_ability
-    MobiCms::Ability.new(mobi_cms_user)
-  end
+    def current_ability
+      MobiCms::Ability.new(mobi_cms_user)
+    end
 
 
   private
+
+
+  def cms_layout
+    if auth_email.blank?
+      "layouts/mobi_cms/public" 
+    else
+      "layouts/mobi_cms/profile" 
+    end
+  end
 
   def conf_admin_option
     if (defined? MobiCms.admin_user) and MobiCms.admin_user.present?

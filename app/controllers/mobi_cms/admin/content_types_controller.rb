@@ -1,6 +1,7 @@
 module MobiCms
   module Admin
   class ContentTypesController < BaseController
+    layout :cms_layout
     load_and_authorize_resource :class => 'MobiCms::ContentType'
 
 

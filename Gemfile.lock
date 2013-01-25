@@ -1,10 +1,15 @@
 GIT
   remote: git@github.com:petoskey/mobi_auth.git
-  revision: fd63431e3d881e513ad946a8671d71adf50a9bfb
+  revision: 2987cd20e9b46e539558d3afc7249afb127d80c4
   branch: mukesh
   specs:
     mobi_auth (0.0.3)
+      bootstrap-sass (~> 2.2.2.0)
+      coffee-rails (~> 3.2.1)
+      jquery-rails
       rails (~> 3.2.11)
+      sass-rails (~> 3.2)
+      simple_form
 
 PATH
   remote: .
@@ -58,6 +63,13 @@ GEM
     carrierwave (0.8.0)
       activemodel (>= 3.2.0)
       activesupport (>= 3.2.0)
+    coffee-rails (3.2.2)
+      coffee-script (>= 2.2.0)
+      railties (~> 3.2.0)
+    coffee-script (2.2.0)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.4.0)
     columnize (0.3.6)
     debugger (1.2.3)
       columnize (>= 0.3.1)
@@ -67,6 +79,8 @@ GEM
       debugger-ruby_core_source (>= 1.1.1)
     debugger-ruby_core_source (1.1.6)
     erubis (2.7.0)
+    execjs (1.4.0)
+      multi_json (~> 1.0)
     hike (1.2.1)
     i18n (0.6.1)
     journey (1.0.4)
@@ -112,7 +126,7 @@ GEM
     rdoc (3.12)
       json (~> 1.4)
     sass (3.2.5)
-    sass-rails (3.2.5)
+    sass-rails (3.2.6)
       railties (~> 3.2.0)
       sass (>= 3.1.10)
       tilt (~> 1.3)

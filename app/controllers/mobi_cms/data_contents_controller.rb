@@ -1,5 +1,6 @@
 module MobiCms
   class DataContentsController < MobiCms::ApplicationController
+    layout :cms_layout
     before_filter :authenticate_cms_user, :except => [:index, :show]
     before_filter :get_form
     load_and_authorize_resource :class => 'MobiCms::DataContent', :only => [:edit, :update, :destroy]
@@ -8,7 +9,7 @@ module MobiCms
       @content_attributes = JSON.parse(@content_type.content_type_attributes).collect{|title,value_hash| title}
       @data_contents = DataContent.appropriate_records(mobi_cms_user.try(:id), @content_type)
       if mobi_cms_user.blank?
-        render :action => "public_data_listing", :layout => "layouts/mobi_cms/public"
+        render :action => "public_data_listing"
       else
         render :action => "user_data_listing"
       end
@@ -19,11 +20,6 @@ module MobiCms
       @data_content = DataContent.find(params[:id])
       template = Liquid::Template.parse @content_type.template
       @msg_template = template.render 'data' => JSON.parse(@data_content.values)
-      if mobi_cms_user
-
-      else
-        render :layout => "layouts/mobi_cms/public"
-      end
     end
   
 

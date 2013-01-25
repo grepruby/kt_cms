@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>MobiCms</title>
+  <%= stylesheet_link_tag    "mobi_cms/application", :media => "all" %>
+  <%= javascript_include_tag "mobi_cms/application" %>
+  <%= csrf_meta_tags %>
+</head>
+<body>
+  <div class="navbar navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+        <ul class="nav">
+          <li class="home"><%= link_to "Dashboard" , mobi_cms.root_url %></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="container" id="main">
+    <%= render :partial => "layouts/mobi_cms/flash_msg" %>
+    <%= yield %>
+  </div>
+</body>
+</html>
