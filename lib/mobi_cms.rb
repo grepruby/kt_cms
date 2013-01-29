@@ -1,6 +1,6 @@
 require "mobi_cms/engine"
 require 'carrierwave'
-
+require 'jquery-ui-rails'
 module MobiCms
   mattr_accessor :user_class, :sign_in_path, :admin_user, :user_authenticate_method, :login_user_email_helper
   
