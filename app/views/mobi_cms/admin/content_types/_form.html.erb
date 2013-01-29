@@ -52,10 +52,10 @@
 
 <script>
   $(document).ready(function(){
-    $(".remove").live('click', function(){
+    $(document).on('click', ".remove", function(){
       $(this).closest(".element-row").remove();
     });
-    $(".options").live('change', function(){
+    $(document).on('click', '.options', function(){
       if ($(this).val() == "radio" || $(this).val() == "check_boxes" || $(this).val() == "select")
         $(this).parent().parent().find("div#options_block").removeClass("hide").addClass("show");
       else
