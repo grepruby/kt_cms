@@ -9,8 +9,9 @@ gemspec
 gem "jquery-rails"
 gem 'mysql2'
 gem 'simple_form'
-gem 'sass-rails'
-gem 'bootstrap-sass'
+gem 'sass-rails', '~> 3.2'
+gem 'bootstrap-sass', '~> 2.2.2.0'
+gem 'coffee-rails', '~> 3.2.1'
 gem 'liquid'
 gem 'jquery-ui-rails'
 gem 'carrierwave'
@@ -24,5 +25,3 @@ gem 'cancan'
 # your gem to rubygems.org.
 
 # To use debugger
-
-  gem 'debugger'
