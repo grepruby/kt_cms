@@ -50,27 +50,4 @@
     <%= link_to "Cancel", root_path, :class => "btn btn-danger" %>
   </div>
 
-<script>
-  $(document).ready(function(){
-    $(document).on('click', ".remove", function(){
-      $(this).closest(".element-row").remove();
-    });
-    $(document).on('click', '.options', function(){
-      if ($(this).val() == "radio" || $(this).val() == "check_boxes" || $(this).val() == "select")
-        $(this).parent().parent().find("div#options_block").removeClass("hide").addClass("show");
-      else
-        $(this).parent().parent().find("div#options_block").removeClass("show").addClass("hide");
-
-      if ($(this).val() == "text" || $(this).val() == "string"){
-          $(this).parent().parent().find("div#string_min_block").removeClass("hide").addClass("show");
-          $(this).parent().parent().find("div#string_max_block").removeClass("hide").addClass("show");
-        }
-      else{
-          $(this).parent().parent().find("div#string_min_block").removeClass("show").addClass("hide");
-          $(this).parent().parent().find("div#string_max_block").removeClass("show").addClass("hide");
-        }
-    }); 
-  });
-</script>
-
 

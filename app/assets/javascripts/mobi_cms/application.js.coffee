@@ -4,4 +4,5 @@
 #= require jquery.ui.slider
 #= require jquery-ui-timepicker-addon
 #= require bootstrap
+#= require custom_js
 #= require_tree .
